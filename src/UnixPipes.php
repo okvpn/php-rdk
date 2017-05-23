@@ -102,4 +102,3 @@ class UnixPipes implements PipesInterface
         fwrite($this->pipes[0], $input);
     }
 }
-//t(combn(c(0:2), 2)
