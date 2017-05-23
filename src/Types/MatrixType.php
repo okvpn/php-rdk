@@ -2,6 +2,8 @@
 
 namespace Okvpn\R\Types;
 
+use Okvpn\R\Exception\InvalidValueException;
+
 class MatrixType extends SimpleArrayType
 {
     /**
@@ -9,7 +11,13 @@ class MatrixType extends SimpleArrayType
      */
     public function convertToRValue($value)
     {
-        return sprintf('c(%s)', implode(',', $value));
+        if (!isset($value[0]) || !is_array($value[0])) {
+            throw new InvalidValueException('Matrix type support only array type.');
+        }
+
+        $payload = array_map(function ($item) {return implode(",", $item);}, $value);
+
+        return sprintf('matrix(c(%s), %s, %s)', implode(",", $payload), count($value[0]), count($value));
     }
 
     /**

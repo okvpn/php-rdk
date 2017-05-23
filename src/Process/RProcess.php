@@ -2,6 +2,7 @@
 
 namespace Okvpn\R\Process;
 
+use Okvpn\R\Exception\RError;
 use Okvpn\R\Exception\RuntimeException;
 use Okvpn\R\PipesInterface;
 use Okvpn\R\ROutput;
@@ -64,7 +65,12 @@ class RProcess implements RProcessInterface
             }
         }
 
-        return new ROutput($rOutputs, $rErrors);
+        $rOutput = new ROutput($rOutputs, $rErrors);
+        if ($rErrors) {
+            throw new RError($rOutput);
+        }
+
+        return $rOutput;
     }
 
     /**
