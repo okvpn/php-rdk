@@ -8,7 +8,7 @@ class UnixPipes implements PipesInterface
     public $pipes;
 
     /** @var bool */
-    protected $blocked;
+    protected $blocked = true;
 
     /**
      * {@inheritdoc}
@@ -25,7 +25,7 @@ class UnixPipes implements PipesInterface
     /**
      * {@inheritdoc}
      */
-    public function writeAndRead($input, $blocking = true)
+    public function writeAndRead($input)
     {
         $this->unblock();
         $r = $this->pipes;
@@ -38,7 +38,7 @@ class UnixPipes implements PipesInterface
             do {
                 $data = fread($pipe, self::CHUNK_SIZE);
                 $read[$type] .= $data;
-            } while (isset($data[0]) && (isset($data[self::CHUNK_SIZE - 1])));
+            } while ($data && $data != '> ' && substr($data, -3) != "\n> ");
 
             if (!isset($read[$type][0])) {
                 unset($read[$type]);
@@ -73,12 +73,8 @@ class UnixPipes implements PipesInterface
      */
     protected function unblock()
     {
-        if (!$this->blocked) {
-            return;
-        }
-
-        foreach ($this->pipes as $pipe) {
-            stream_set_blocking($pipe, 0);
+        if ($this->blocked) {
+            stream_set_blocking($this->pipes[2], 0);
         }
 
         $this->blocked = false;

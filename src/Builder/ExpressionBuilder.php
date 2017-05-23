@@ -103,8 +103,8 @@ class ExpressionBuilder
                 $payload = preg_replace(sprintf('/\:%s/', $name), $value, $payload);
             }
 
-            $output = $this->rProcess->write($payload);
-            $output[] = Type::getType($item['type'])->convertToPHPValue($output->getLastOutput());
+            $rOutput = $this->rProcess->write($payload);
+            $output[] = $rOutput->getLastOutput($item['type']);
         }
 
         return $output;

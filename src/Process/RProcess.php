@@ -45,9 +45,15 @@ class RProcess implements RProcessInterface
         $rOutputs = [];
         $rErrors = [];
         foreach ($rInputLines as $line) {
-            $output = $this->processPipes->writeAndRead($line);
+            $output = $this->processPipes->writeAndRead($line . "\n");
             if (isset($output[1])) {
-                $rOutputs[] = $output[1];
+                $currentOutput = preg_replace('/\n>\x20$/', '', $output[1]);
+                $currentOutput = explode("\n", $currentOutput);
+                foreach ($currentOutput as $lineOutput) {
+                    if ($lineOutput !== $line) {
+                        $rOutputs[] = $lineOutput;
+                    }
+                }
             }
 
             if (isset($output[2])) {
