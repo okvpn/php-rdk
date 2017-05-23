@@ -49,11 +49,14 @@ class RProcess implements RProcessInterface
             if (isset($output[1])) {
                 $currentOutput = preg_replace('/\n>\x20$/', '', $output[1]);
                 $currentOutput = explode("\n", $currentOutput);
+                $rCurrentOutput = [];
                 foreach ($currentOutput as $lineOutput) {
                     if ($lineOutput !== $line) {
-                        $rOutputs[] = $lineOutput;
+                        $rCurrentOutput[] = $lineOutput;
                     }
                 }
+
+                $rOutputs[] = $rCurrentOutput ? implode("\n", $rCurrentOutput) : null;
             }
 
             if (isset($output[2])) {

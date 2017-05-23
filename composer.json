@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Integrating PHP and R",
     "keywords": ["R"],
-    "homepage": "https://github.com",
+    "homepage": "https://github.com/okvpn/php-rdk",
     "license": "MIT",
     "minimum-stability":"dev",
     "prefer-stable": true,

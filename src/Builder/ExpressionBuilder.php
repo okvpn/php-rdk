@@ -65,6 +65,10 @@ class ExpressionBuilder
     public function execute()
     {
         $payload = implode(PHP_EOL, $this->set);
+        if (!$payload) {
+            return $this;
+        }
+
         foreach ($this->parameters as $name => $parameter) {
             $type = Type::getType($parameter['type']);
             $value = $type->convertToRValue($parameter['value']);
@@ -72,6 +76,7 @@ class ExpressionBuilder
         }
 
         $this->rProcess->write($payload);
+        $this->set = [];
 
         return $this;
     }
@@ -107,6 +112,19 @@ class ExpressionBuilder
             $output[] = $rOutput->getLastOutput($item['type']);
         }
 
+        $this->parameters = [];
+        $this->set = [];
+        $this->select = [];
+
         return $output;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSingleResult()
+    {
+        $result = $this->getResult();
+        return reset($result);
     }
 }

@@ -7,6 +7,7 @@ use Okvpn\R\Exception\InvalidArgumentException;
 abstract class Type
 {
     const SIMPLE_ARRAY = 'simple_array';
+    const MATRIX = 'matrix';
     const BOOLEAN = 'boolean';
     const DATETIME = 'datetime';
     const DATE = 'date';
@@ -127,7 +128,8 @@ abstract class Type
             self::BOOLEAN => 'Okvpn\R\Types\BooleanType',
             self::STRING => 'Okvpn\R\Types\StringType',
             self::FLOAT => 'Okvpn\R\Types\FloatType',
-            self::RAW => 'Okvpn\R\Types\RawType'
+            self::RAW => 'Okvpn\R\Types\RawType',
+            self::MATRIX => 'Okvpn\R\Types\MatrixType'
         ];
 
         return $typesMap;

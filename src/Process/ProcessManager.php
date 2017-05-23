@@ -34,7 +34,7 @@ class ProcessManager
     /**
      * @return ExpressionBuilder
      */
-    public function getQueryBuilder()
+    public function createExpressionBuilder()
     {
         return new ExpressionBuilder($this->process);
     }

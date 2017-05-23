@@ -38,7 +38,7 @@ class UnixPipes implements PipesInterface
             do {
                 $data = fread($pipe, self::CHUNK_SIZE);
                 $read[$type] .= $data;
-            } while ($data && $data != '> ' && substr($data, -3) != "\n> ");
+            } while ($data && $data != '> ' && substr($data, -3) != "\n> " && substr($data, -3) != "\n+ ");
 
             if (!isset($read[$type][0])) {
                 unset($read[$type]);
@@ -102,3 +102,4 @@ class UnixPipes implements PipesInterface
         fwrite($this->pipes[0], $input);
     }
 }
+//t(combn(c(0:2), 2)
