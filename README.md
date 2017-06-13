@@ -8,6 +8,34 @@ Sometimes there is a need to make complex calculations and analyze the data, but
 in PHP. As is known that PHP a badly programming language for statistics calculation and data manning. But R is a language 
 and environment for statistical computing and graphics. So this library provide integration between R and PHP.
 
+Installation
+---------------------
+- Install [Composer][1] following the official Composer [documentation][2]
+```
+composer require okvpn/php-rdk
+```
+- Install R
+
+```
+sudo apt-get install r-base
+```
+Run command to confirms that R successfully installed.
+```
+R --version
+
+Output:
+
+R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under the terms of the
+GNU General Public License versions 2 or 3.
+For more information about these matters see
+http://www.gnu.org/licenses/.
+```
+
 Example
 -------
 
@@ -56,3 +84,6 @@ $result = $exprBuilder
 License
 -------
 MIT License. See [LICENSE](LICENSE).
+
+[1]:    https://getcomposer.org/
+[2]:    https://getcomposer.org/download/
