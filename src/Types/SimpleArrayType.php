@@ -26,8 +26,10 @@ class SimpleArrayType extends Type
                 $numbersAsStr = $row;
             }
             foreach (explode(' ', $numbersAsStr) as $potentialNumber) {
-                if ($potentialNumber !== '') {
+                if (is_numeric($potentialNumber)) {
                     array_push($result, 0 + $potentialNumber);
+                } elseif ($potentialNumber == 'NaN') {
+                    array_push($result, null);
                 }
             }
         }
