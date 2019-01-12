@@ -100,5 +100,6 @@ class UnixPipes implements PipesInterface
         }
 
         fwrite($this->pipes[0], $input);
+        usleep(1000);
     }
 }
